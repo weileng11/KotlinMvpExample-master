@@ -9,6 +9,6 @@ package com.exmple.corelib.http.constant
  */
 object URLConstant {
     const val BASE_URL = "http://www.baidu.com/"
-   
 
+    const val BASE_URL1 = "http://baobab.kaiyanapp.com/api/"
 }

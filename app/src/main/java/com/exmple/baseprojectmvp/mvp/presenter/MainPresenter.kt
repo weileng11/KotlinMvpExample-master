@@ -1,7 +1,9 @@
 package com.exmple.baseprojectmvp.mvp.presenter
 
+import com.exmple.baseprojectmvp.http.MainDataBean
 import com.exmple.baseprojectmvp.mvp.contract.IMainContact
 import com.exmple.baseprojectmvp.mvp.model.MainModel
+import com.exmple.corelib.http.retrofit.NetCallBack
 import com.exmple.corelib.mSubscribe
 import com.exmple.corelib.mvp.BasePresenterKt
 
@@ -14,10 +16,25 @@ import com.exmple.corelib.mvp.BasePresenterKt
  */
 class MainPresenter:BasePresenterKt<IMainContact.View>(), IMainContact.Presenter {
     override var mModel: IMainContact.Model? = MainModel()
+
     override fun getDataByNet() {
-        mModel?.getMainData()?.mSubscribe(mView,mModel,"正在获取数据中...") {
-            mView?.getDataSuccess()
+        mModel?.getMainData()?.mSubscribe(
+                mView,
+                mModel,
+                "haha",
+                object : NetCallBack<MainDataBean> {
+                    override fun backFail(errStr: String) {
+                    }
+
+                    override fun success(rspBean: MainDataBean) {
+
+                    }
+
+                    override fun fail(t: Throwable) {
+
+                    }
+                })
         }
-    }
 }
+
 

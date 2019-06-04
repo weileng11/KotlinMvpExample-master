@@ -4,6 +4,7 @@ import com.exmple.baseprojectmvp.http.MainDataBean
 import com.exmple.corelib.mvp.IListView
 import com.exmple.corelib.mvp.IModel
 import com.exmple.corelib.mvp.IPresenter
+import com.hazz.kotlinmvp.mvp.model.bean.CategoryBean
 import io.reactivex.Observable
 
 /**

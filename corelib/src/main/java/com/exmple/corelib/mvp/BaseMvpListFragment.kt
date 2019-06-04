@@ -24,6 +24,7 @@ abstract class BaseMvpListFragment<V : ITopView, P : ITopPresenter> : BaseMvpFra
         refreshLayout.setOnRefreshListener { onRefresh() }
         //设置下拉刷新是否可用
         refreshLayout.isEnabled = setRefreshEnable
+
     }
 
     abstract fun onRefresh()

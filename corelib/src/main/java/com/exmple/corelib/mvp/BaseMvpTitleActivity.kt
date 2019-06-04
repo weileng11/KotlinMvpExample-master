@@ -8,12 +8,14 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.exmple.corelib.R
 import com.exmple.corelib.mvp.BaseMvpActivity
 import com.exmple.corelib.mvp.ITopPresenter
 import com.exmple.corelib.mvp.ITopView
+import kotlinx.android.synthetic.main.activtiy_base_title.*
 
 
 /**
@@ -37,8 +39,9 @@ abstract class BaseMvpTitleActivity<V : ITopView, P : ITopPresenter> : BaseMvpAc
         toolbar.title = ""
         setSupportActionBar(toolbar)
         if (hasBackIcon()) {
-            toolbar.setNavigationIcon(R.drawable.return_icon)
-            toolbar.setNavigationOnClickListener { finish() }
+            iv_back.setOnClickListener { finish() }
+//            toolbar.setNavigationIcon(R.drawable.return_icon)
+//            toolbar.setNavigationOnClickListener { finish() }
         }
     }
 

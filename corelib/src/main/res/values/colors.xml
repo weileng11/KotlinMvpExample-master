@@ -21,4 +21,6 @@
     <color name="_858585">#858585</color>
 
     <color name="trans">#00ffffff</color>
+
+    <color name="bg_main_top">#ff6d6a</color>
 </resources>

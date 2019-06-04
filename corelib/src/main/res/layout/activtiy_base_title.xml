@@ -8,25 +8,33 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/base_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x90"
-        android:background="@color/white"
+        android:layout_height="@dimen/dp65"
+        android:background="@color/bg_main_top"
         android:title="">
         <!--中间部分，除标题外可能会含有其他view-->
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/dp17"
+                android:layout_height="@dimen/dp19"
+                android:src="@drawable/return_icon"
+                android:layout_centerVertical="true"
+                />
 
             <TextView
                 android:id="@+id/base_title_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/color_black"
-                android:textSize="18sp"/>
-        </FrameLayout>
+                android:layout_height="wrap_content"
+                android:text="11111"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp18"/>
+        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 

@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.exmple.corelib.base.LibApplication
 import com.exmple.corelib.http.constant.CodeStatus
 import com.exmple.corelib.http.entity.BaseBean
+import com.exmple.corelib.http.retrofit.NetCallBack
 import com.exmple.corelib.mvp.IListView
 import com.exmple.corelib.mvp.IModel
 import com.exmple.corelib.mvp.ITopPresenter
@@ -92,11 +93,14 @@ fun Context.sp2px(spValue: Float): Float {
     return (spValue * this.resources.displayMetrics.scaledDensity + 0.5f)
 }
 
+@JvmOverloads
 fun <T : BaseBean, P : ITopPresenter> Observable<T>.mSubscribe(
         iBaseView: IView<P>? = null
         , iModel: IModel? = null
         , msg: String = ""
-        , onSuccess: (T) -> Unit) {
+        , call: NetCallBack<T>
+        ) {
+//    , onSuccess: (T) -> Unit
     this.compose(SchedulerUtils.ioToMain())
             .subscribe(object : Observer<T> {
                 override fun onComplete() {
@@ -114,7 +118,8 @@ fun <T : BaseBean, P : ITopPresenter> Observable<T>.mSubscribe(
 
                 override fun onNext(t: T) {
                     if (t.code == CodeStatus.SUCCESS) {
-                        onSuccess.invoke(t)
+//                        onSuccess.invoke(t)
+                        call.success(t)
                     } else if (t.code == CodeStatus.LOGIN_OUT) {//重新登录
 //                val currentActivity = ActivityUtils.currentActivity()
 //                UserManager.getInstance().clear()

@@ -1,20 +1,23 @@
 package com.exmple.baseprojectmvp.mvp.view
 
 import com.exmple.baseprojectmvp.R
+import com.exmple.baseprojectmvp.http.MainDataBean
 import com.exmple.baseprojectmvp.mvp.adapter.DemoAdapter
 import com.exmple.baseprojectmvp.mvp.contract.IMainContact
 import com.exmple.baseprojectmvp.mvp.presenter.MainPresenter
-import com.exmple.corelib.mvp.BaseMvpListActivity
 import com.exmple.corelib.utils.CustomLoadMoreView
+import com.sihaiwanlian.baselib.mvp.BaseMvpTitleListActivity
 
 
-class MainActivity : BaseMvpListActivity<IMainContact.View, IMainContact.Presenter>(), IMainContact.View {
+class MainActivity : BaseMvpTitleListActivity<IMainContact.View, IMainContact.Presenter>(), IMainContact.View {
 
     override var mPresenter: IMainContact.Presenter = MainPresenter()
     override val setRefreshEnable = true
     override val setRecyclerViewBgColor = R.color.white
     override fun initData() {
         super.initData()
+        setActivityTitle("学习kotlin")
+
         val data = ArrayList<String>()
         data.add("")
         data.add("")
@@ -37,7 +40,7 @@ class MainActivity : BaseMvpListActivity<IMainContact.View, IMainContact.Present
 
     }
 
-
+    private var list:List<MainDataBean>?=null
     override fun getDataSuccess() {
 
     }
