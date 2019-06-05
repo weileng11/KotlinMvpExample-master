@@ -7,7 +7,6 @@ import com.exmple.baseprojectmvp.mvp.adapter.HomeAdapter
 import com.exmple.baseprojectmvp.mvp.contract.fragment.IHomeContract
 import com.exmple.baseprojectmvp.mvp.presenter.fragment.HomePresenter
 import com.exmple.corelib.mvp.BaseMvpListFragment
-import com.exmple.corelib.utils.CustomLoadMoreView
 import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
 
 /**
@@ -25,6 +24,8 @@ class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Prese
     override val setRecyclerViewBgColor = R.color.white
 
     private var num: Int = 1
+    //设置第一次请求的数据
+    private lateinit var demoAdapter :HomeAdapter
 
     companion object {
         fun getInstance(title: String): HomeFragment {
@@ -37,6 +38,7 @@ class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Prese
     }
 
 
+    //初始化获取数据
     override fun lazyLoad() {
         mPresenter.requestHomeData(num)
     }
@@ -45,6 +47,7 @@ class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Prese
 
     }
 
+    //(上啦刷新)
     override fun onRefresh() {
 
 //        mPresenter.requestHomeData(num)
@@ -52,7 +55,7 @@ class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Prese
         mRefreshLayout.finishRefresh(true)
     }
 
-    //重试
+    //重试(下拉刷新)
     override fun onRetry() {
         mPresenter.loadMoreData()
         mRefreshLayout.finishLoadMore(true)
@@ -61,9 +64,6 @@ class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Prese
     override fun loadMoreFail(isRefresh: Boolean) {
         mRefreshLayout.finishLoadMore(true)
     }
-
-    //设置第一次请求的数据
-    private lateinit var demoAdapter :HomeAdapter
 
     override fun setHomeData(homeBean: HomeBean) {
         //设置到适配
@@ -80,7 +80,7 @@ class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Prese
 
     //显示错误信息
     override fun showError(msg: String) {
-
+        showToast(msg)
     }
 
 //    override fun getContentView(): Int {

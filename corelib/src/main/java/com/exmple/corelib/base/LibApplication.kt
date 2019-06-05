@@ -3,6 +3,7 @@ package com.exmple.corelib.base
 import android.app.Application
 import android.content.Context
 import android.os.Handler
+import com.exmple.corelib.utils.DisplayManager
 import com.exmple.corelib.utils.LogCatStrategy
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -37,6 +38,8 @@ open class LibApplication : Application() {
         refWatcher = setupLeakCanary()
         //初始化生命周期
         appHandler= Handler()
+        //初始化设置
+        DisplayManager.init(this)
         initLogger()
     }
 

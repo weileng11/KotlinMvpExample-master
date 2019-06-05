@@ -192,4 +192,64 @@ fun <T : BaseBean, P : ITopPresenter> Observable<T>.listSubcribe(
                     }
                 }
             })
+
+
+
+fun mArrayListSubscribe(
+            iBaseView: IView<P>? = null
+            , iModel: IModel? = null
+            , msg: String = ""
+            , call: NetCallBack<T>
+    ) {
+//    , onSuccess: (T) -> Unit
+        this.compose(SchedulerUtils.ioToMain())
+                .subscribe(object : Observer<T> {
+                    override fun onComplete() {
+                        iBaseView?.dismissLoading()
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                        iModel?.addDisposable(d)
+                        iBaseView?.showLoading(if (msg.isEmpty()) "请求中..." else msg)
+                        if (!NetworkUtils.isConnected()) {
+                            showToastBottom("连接失败,请检查网络状况!")
+                            onComplete()
+                        }
+                    }
+
+                    override fun onNext(t: T) {
+                        if (t.code == CodeStatus.SUCCESS) {
+//                        onSuccess.invoke(t)
+                            call.success(t)
+                        } else if (t.code == CodeStatus.LOGIN_OUT) {//重新登录
+//                val currentActivity = ActivityUtils.currentActivity()
+//                UserManager.getInstance().clear()
+//                EMClient.getInstance().logout(true)
+//                showToastBottom("登录过期，请重新登录")
+//                val intent = Intent(currentActivity, LoginActivity::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                currentActivity?.startActivity(intent)
+                        } else {
+                            call.backFail(t.msg)
+                            if (!t.msg.isNullOrEmpty()) {
+                                t.msg?.let { showToastBottom(it) }
+                            } else {
+                                showToastBottom("请求失败")
+                            }
+                        }
+                    }
+
+                    override fun onError(e: Throwable) {
+                        iBaseView?.dismissLoading()
+                        call.fail(e.message)
+                        if (e is SocketTimeoutException || e is ConnectException) {
+                            showToastBottom("连接失败,请检查网络状况!")
+                        } else if (e is JsonParseException) {
+                            showToastBottom("数据解析失败")
+                        } else {
+                            showToastBottom("请求失败")
+                        }
+                    }
+                })
+    }
 }
