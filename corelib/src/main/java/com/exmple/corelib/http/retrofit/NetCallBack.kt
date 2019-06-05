@@ -18,6 +18,6 @@ interface NetCallBack<T: BaseBean> {
     @Throws(Exception::class)
     fun backFail(errStr: String)
 
-    fun fail(t: Throwable)
+    fun fail(t: String?)
 
 }

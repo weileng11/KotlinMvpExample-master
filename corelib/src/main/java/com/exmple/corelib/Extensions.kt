@@ -129,6 +129,7 @@ fun <T : BaseBean, P : ITopPresenter> Observable<T>.mSubscribe(
 //                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 //                currentActivity?.startActivity(intent)
                     } else {
+                        call.backFail(t.msg)
                         if (!t.msg.isNullOrEmpty()) {
                             t.msg?.let { showToastBottom(it) }
                         } else {
@@ -139,6 +140,7 @@ fun <T : BaseBean, P : ITopPresenter> Observable<T>.mSubscribe(
 
                 override fun onError(e: Throwable) {
                     iBaseView?.dismissLoading()
+                    call.fail(e.message)
                     if (e is SocketTimeoutException || e is ConnectException) {
                         showToastBottom("连接失败,请检查网络状况!")
                     } else if (e is JsonParseException) {

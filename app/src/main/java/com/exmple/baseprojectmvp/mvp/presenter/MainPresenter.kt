@@ -1,5 +1,6 @@
 package com.exmple.baseprojectmvp.mvp.presenter
 
+import android.util.Log
 import com.exmple.baseprojectmvp.http.MainDataBean
 import com.exmple.baseprojectmvp.mvp.contract.IMainContact
 import com.exmple.baseprojectmvp.mvp.model.MainModel
@@ -21,16 +22,16 @@ class MainPresenter:BasePresenterKt<IMainContact.View>(), IMainContact.Presenter
         mModel?.getMainData()?.mSubscribe(
                 mView,
                 mModel,
-                "haha",
+                "正在获取数据...",
                 object : NetCallBack<MainDataBean> {
                     override fun backFail(errStr: String) {
                     }
 
                     override fun success(rspBean: MainDataBean) {
-
+                           Log.i("info",rspBean.data.toString())
                     }
 
-                    override fun fail(t: Throwable) {
+                    override fun fail(t: String?) {
 
                     }
                 })

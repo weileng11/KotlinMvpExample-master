@@ -3,10 +3,11 @@ package com.exmple.baseprojectmvp.mvp.view.fragment
 import android.os.Bundle
 import android.view.View
 import com.exmple.baseprojectmvp.R
+import com.exmple.baseprojectmvp.mvp.adapter.HomeAdapter
 import com.exmple.baseprojectmvp.mvp.contract.fragment.IHomeContract
 import com.exmple.baseprojectmvp.mvp.presenter.fragment.HomePresenter
-import com.exmple.corelib.mvp.BaseMvpFragment
 import com.exmple.corelib.mvp.BaseMvpListFragment
+import com.exmple.corelib.utils.CustomLoadMoreView
 import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
 
 /**
@@ -18,19 +19,12 @@ import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
  * @time:  11:51
  */
 class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Presenter>(),IHomeContract.View{
-    override fun setHomeData(homeBean: HomeBean) {
-    }
-
-    override fun setMoreData(itemList: ArrayList<HomeBean.Issue.Item>) {
-    }
-
-    override fun showError(msg: String, errorCode: Int) {
-
-    }
 
     override var mPresenter: IHomeContract.Presenter = HomePresenter()
-    override val setRefreshEnable = true
+//    override val setRefreshEnable = true
     override val setRecyclerViewBgColor = R.color.white
+
+    private var num: Int = 1
 
     companion object {
         fun getInstance(title: String): HomeFragment {
@@ -44,6 +38,7 @@ class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Prese
 
 
     override fun lazyLoad() {
+        mPresenter.requestHomeData(num)
     }
 
     override fun initView(view: View) {
@@ -53,16 +48,40 @@ class HomeFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Prese
     override fun onRefresh() {
 
 //        mPresenter.requestHomeData(num)
-        mRefreshLayout.finishRefresh(false)
+        mPresenter.loadMoreData()
+        mRefreshLayout.finishRefresh(true)
     }
 
+    //重试
     override fun onRetry() {
+        mPresenter.loadMoreData()
+        mRefreshLayout.finishLoadMore(true)
     }
 
     override fun loadMoreFail(isRefresh: Boolean) {
-        mRefreshLayout.finishLoadMore(false)
+        mRefreshLayout.finishLoadMore(true)
     }
 
+    //设置第一次请求的数据
+    private lateinit var demoAdapter :HomeAdapter
+
+    override fun setHomeData(homeBean: HomeBean) {
+        //设置到适配
+        demoAdapter= HomeAdapter(data = homeBean.issueList[0].itemList)
+//        demoAdapter.setLoadMoreView(CustomLoadMoreView())
+        mRecyclerView.adapter = demoAdapter
+//        demoAdapter.setOnLoadMoreListener({ demoAdapter.loadMoreEnd() }, mRecyclerView)
+    }
+
+    //设置加载更多的数据
+    override fun setMoreData(itemList: ArrayList<HomeBean.Issue.Item>) {
+        demoAdapter.addData(itemList)
+    }
+
+    //显示错误信息
+    override fun showError(msg: String) {
+
+    }
 
 //    override fun getContentView(): Int {
 //        return R.layout.fragment_home

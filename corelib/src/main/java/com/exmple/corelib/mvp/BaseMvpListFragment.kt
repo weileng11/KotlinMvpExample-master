@@ -20,15 +20,21 @@ abstract class BaseMvpListFragment<V : ITopView, P : ITopPresenter> : BaseMvpFra
         context?.let { list_rv.setBackgroundColor(ContextCompat.getColor(it, setRecyclerViewBgColor)) }
         //重试
         list_sv.onRetry = { onRetry() }
+
         //刷新
         refreshLayout.setOnRefreshListener { onRefresh() }
+
+        refreshLayout.setEnableRefresh(true)
+        refreshLayout.setEnableLoadMore(true)
+//        refreshLayout.finishLoadMore(true)
+        refreshLayout.setOnLoadMoreListener { onRetry()}
         //设置下拉刷新是否可用
-        refreshLayout.isEnabled = setRefreshEnable
+//        refreshLayout.isEnabled = setRefreshEnable
 
     }
 
     abstract fun onRefresh()
     abstract fun onRetry()
     open val setRecyclerViewBgColor = R.color.white
-    open val setRefreshEnable = true
+//    open val setRefreshEnable = true
 }

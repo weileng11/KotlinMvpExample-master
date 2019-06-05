@@ -31,7 +31,7 @@ interface IHomeContract {
         /**
          * 显示错误信息
          */
-        fun showError(msg: String,errorCode:Int)
+        fun showError(msg: String)
     }
     interface Presenter : IPresenter<View, Model> {
 

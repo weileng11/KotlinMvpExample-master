@@ -5,17 +5,18 @@ import android.view.View
 import com.exmple.baseprojectmvp.R
 import com.exmple.baseprojectmvp.mvp.contract.fragment.IHomeContract
 import com.exmple.baseprojectmvp.mvp.presenter.fragment.HomePresenter
-import com.exmple.corelib.mvp.BaseMvpFragment
+import com.exmple.corelib.mvp.BaseMvpListFragment
+import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
 
 /**
  * @author: ${bruce}
  * @project: KotlinMvpExample-master
  * @package: com.exmple.baseprojectmvp.mvp.view.fragment
- * @description:
+ * @description:发现
  * @date: 2019/6/4
  * @time:  11:55
  */
-class RankFragment : BaseMvpFragment<IHomeContract.View, IHomeContract.Presenter>(), IHomeContract.View{
+class RankFragment : BaseMvpListFragment<IHomeContract.View, IHomeContract.Presenter>(), IHomeContract.View{
 
     override var mPresenter: IHomeContract.Presenter = HomePresenter()
 
@@ -39,4 +40,21 @@ class RankFragment : BaseMvpFragment<IHomeContract.View, IHomeContract.Presenter
     override fun initView(view: View) {
     }
 
+    override fun loadMoreFail(isRefresh: Boolean) {
+    }
+
+    override fun onRefresh() {
+    }
+
+    override fun onRetry() {
+    }
+
+    override fun setHomeData(homeBean: HomeBean) {
+    }
+
+    override fun setMoreData(itemList: ArrayList<HomeBean.Issue.Item>) {
+    }
+
+    override fun showError(msg: String) {
+    }
 }

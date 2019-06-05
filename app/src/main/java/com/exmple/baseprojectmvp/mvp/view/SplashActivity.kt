@@ -69,7 +69,7 @@ class SplashActivity : BaseActivity(),EasyPermissions.PermissionCallbacks{
     }
 
     private fun redirectTo() {
-        val intent=Intent(this,MainActivity::class.java)
+        val intent=Intent(this,MainActivity1::class.java)
         startActivity(intent)
         finish()
     }

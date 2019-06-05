@@ -66,9 +66,9 @@ abstract class RetrofitFactory1<T> {
                 .build()
 
         apiService = Retrofit.Builder()
-                .baseUrl(URLConstant.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(buildGson())) // 添加Gson转换器
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // 添加Retrofit到RxJava的转换器
+                .baseUrl(URLConstant.BASE_URL1)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build()
                 .create(getApiService())

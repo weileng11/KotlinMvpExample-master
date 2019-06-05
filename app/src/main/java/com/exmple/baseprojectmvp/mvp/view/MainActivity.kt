@@ -18,6 +18,8 @@ class MainActivity : BaseMvpTitleListActivity<IMainContact.View, IMainContact.Pr
         super.initData()
         setActivityTitle("学习kotlin")
 
+        mPresenter.getDataByNet()
+
         val data = ArrayList<String>()
         data.add("")
         data.add("")
