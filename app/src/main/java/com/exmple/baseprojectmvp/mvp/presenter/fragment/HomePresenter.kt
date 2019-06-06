@@ -24,6 +24,7 @@ class HomePresenter: BasePresenterKt<IHomeContract.View>(),IHomeContract.Present
     private var nextPageUrl:String?=null     //加载首页的Banner 数据+一页数据合并后，nextPageUrl没 add
 
     override fun requestHomeData(num: Int) {
+        //HomeBean必须是一级，并且继承baseBean，才可以访问mSubscribe
         mModel?.requestHomeData(num)?.mSubscribe (mView,mModel,"正在获取数据中...",object : NetCallBack<HomeBean> {
             override fun success(rspBean: HomeBean) {
                 Log.i("info",rspBean.issueList[0].itemList.toString())
@@ -48,6 +49,8 @@ class HomePresenter: BasePresenterKt<IHomeContract.View>(),IHomeContract.Present
     }
 
     override fun loadMoreData() {
+        //HomeBean必须是一级，并且继承baseBean，才可以访问mSubscribe
+
         nextPageUrl?.let {
             mModel?.loadMoreData(it)?.mSubscribe (mView,mModel,"正在获取数据中...",object : NetCallBack<HomeBean> {
             override fun success(rspBean: HomeBean) {

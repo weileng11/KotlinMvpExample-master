@@ -1,6 +1,7 @@
 package com.exmple.baseprojectmvp.mvp.presenter.fragment
 
 import android.util.Log
+import com.exmple.baseprojectmvp.http.NetListCallBack
 import com.exmple.baseprojectmvp.mvp.contract.fragment.ICategoryContract
 import com.exmple.baseprojectmvp.mvp.contract.fragment.IHomeContract
 import com.exmple.baseprojectmvp.mvp.model.fragment.CategoryModel
@@ -15,10 +16,12 @@ import com.exmple.corelib.showToastBottom
 import com.exmple.corelib.utils.NetworkUtils
 import com.google.gson.JsonParseException
 import com.hazz.kotlinmvp.mvp.model.bean.CategoryBean
+import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+import java.util.*
 
 /**
  * @author: ${bruce}
@@ -32,6 +35,25 @@ class CategoryPresenter : BasePresenterKt<ICategoryContract.View>(), ICategoryCo
     override var mModel: ICategoryContract.Model? = CategoryModel()
 
     override fun getCategoryData() {
+//        val disposable=  mModel?.getCategoryData()
+//        disposable?.compose(SchedulerUtils.ioToMain())?.subscribe()
+//
+//        NetListCallBack.getArrayListData(disposable,object : NetCallBack<ArrayList<CategoryBean>> {
+//            override fun success(rspBean: ArrayList<CategoryBean>) {
+//
+//            }
+//
+//            override fun backFail(errStr: String) {
+//                mView?.showError(errStr)
+//            }
+//
+//            override fun fail(t: String?) {
+//                if (t != null) {
+//                    mView?.showError(t)
+//                }
+//            }
+//        })
+
          mModel?.getCategoryData()?.compose(SchedulerUtils.ioToMain())!!
                 .subscribe(object : Observer<ArrayList<CategoryBean>> {
                     override fun onNext(rspBean: ArrayList<CategoryBean>) {
@@ -65,23 +87,6 @@ class CategoryPresenter : BasePresenterKt<ICategoryContract.View>(), ICategoryCo
                         }
                     }
                 })
-
-//        mModel?.getCategoryData()?.mArrayListSubscribe (mView,mModel,"正在获取数据中...",object : NetCallBack<CategoryBean> {
-//            override fun success(rspBean: CategoryBean) {
-//                Log.i("info",rspBean.toString())
-////                   mView?.showCategory(rspBean)
-//            }
-//
-//            override fun backFail(errStr: String) {
-//                mView?.showError(errStr)
-//            }
-//
-//            override fun fail(t: String?) {
-//                if (t != null) {
-//                    mView?.showError(t)
-//                }
-//            }
-//        })
     }
 
 
