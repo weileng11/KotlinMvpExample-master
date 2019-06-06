@@ -17,7 +17,7 @@ abstract class BaseMvpListFragment<V : ITopView, P : ITopPresenter> : BaseMvpFra
     override val mRefreshLayout: SmartRefreshLayout by lazy { refreshLayout }
     override fun initData() {
         //设置背景色
-        context?.let { list_rv.setBackgroundColor(ContextCompat.getColor(it, setRecyclerViewBgColor)) }
+//        context?.let { list_rv.setBackgroundColor(ContextCompat.getColor(it, setRecyclerViewBgColor)) }
         //重试
 //        list_sv.onRetry = { onRetry() }
 

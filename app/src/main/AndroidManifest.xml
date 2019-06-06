@@ -35,6 +35,12 @@
 
         <activity android:name=".mvp.view.MainActivity1">
         </activity>
+        <activity android:name=".mvp.view.ProfileHomePageActivity">
+        </activity>
+        <activity android:name=".mvp.view.AboutActivity">
+        </activity>
+        <activity android:name=".mvp.view.WatchHistoryActivity">
+        </activity>
     </application>
 
 </manifest>
