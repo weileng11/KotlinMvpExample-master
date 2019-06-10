@@ -3,6 +3,7 @@ package com.exmple.baseprojectmvp.mvp.contract.fragment
 import com.exmple.corelib.mvp.IListView
 import com.exmple.corelib.mvp.IModel
 import com.exmple.corelib.mvp.IPresenter
+import com.exmple.corelib.mvp.IView
 import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
 import com.hazz.kotlinmvp.mvp.model.bean.TabInfoBean
 import io.reactivex.Observable
@@ -16,7 +17,7 @@ import io.reactivex.Observable
  * @time:  11:45
  */
 interface IRankContract {
-    interface View : IListView<Presenter> {
+    interface View : IView<Presenter> {
         /**
          * 设置排行榜的数据
          */

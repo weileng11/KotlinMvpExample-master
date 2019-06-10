@@ -1,11 +1,21 @@
 package com.exmple.baseprojectmvp.mvp.adapter
 
 import android.app.Activity
+import android.content.Intent
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.exmple.baseprojectmvp.R
+import com.exmple.baseprojectmvp.durationFormat
+import com.exmple.baseprojectmvp.mvp.view.VideoDetailActivity
+import com.exmple.baseprojectmvp.widget.Constants
 import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
 
 /**
@@ -16,7 +26,8 @@ import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
  * @date: 2019/6/6
  * @time:  10:42
  */
-class FollowHorizontalAdapter(categoryList: ArrayList<HomeBean.Issue.Item>): BaseQuickAdapter<HomeBean.Issue.Item, BaseViewHolder>(R.layout.item_follow_horizontal,categoryList) {
+class FollowHorizontalAdapter(categoryList: ArrayList<HomeBean.Issue.Item>):
+        BaseQuickAdapter<HomeBean.Issue.Item, BaseViewHolder>(R.layout.item_follow_horizontal,categoryList) {
     override fun convert(holder: BaseViewHolder?, data: HomeBean.Issue.Item?) {
         val horizontalItemData = data?.data
 
@@ -46,23 +57,30 @@ class FollowHorizontalAdapter(categoryList: ArrayList<HomeBean.Issue.Item>): Bas
 //                goToVideoPlayer(mContext as Activity, holder.getView(R.id.iv_cover_feed), data)
 //            })
         }
+
+        holder?.getView<LinearLayout>(R.id.ll_video).setOnClickListener {
+            goToVideoPlayer(mContext as Activity, holder.getView(R.id.iv_cover_feed), data) }
     }
 
-    fun durationFormat(duration: Long?): String {
-        val minute = duration!! / 60
-        val second = duration % 60
-        return if (minute <= 9) {
-            if (second <= 9) {
-                "0$minute' 0$second''"
-            } else {
-                "0$minute' $second''"
-            }
+
+    /**
+     * 跳转到视频详情页面播放
+     *
+     * @param activity
+     * @param view
+     */
+    private fun goToVideoPlayer(activity: Activity, view: View, itemData: HomeBean.Issue.Item) {
+        val intent = Intent(activity, VideoDetailActivity::class.java)
+        intent.putExtra(Constants.BUNDLE_VIDEO_DATA, itemData)
+        intent.putExtra(VideoDetailActivity.Companion.TRANSITION, true)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            val pair = Pair<View, String>(view, VideoDetailActivity.IMG_TRANSITION)
+            val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity, pair)
+            ActivityCompat.startActivity(activity, intent, activityOptions.toBundle())
         } else {
-            if (second <= 9) {
-                "$minute' 0$second''"
-            } else {
-                "$minute' $second''"
-            }
+            activity.startActivity(intent)
+            activity.overridePendingTransition(R.anim.anim_in, R.anim.anim_out)
         }
     }
 

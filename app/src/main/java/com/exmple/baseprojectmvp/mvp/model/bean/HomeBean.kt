@@ -1,5 +1,6 @@
 package com.hazz.kotlinmvp.mvp.model.bean
 
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.exmple.corelib.http.entity.BaseBean
 import java.io.Serializable
 
@@ -11,7 +12,11 @@ data class HomeBean(val issueList: ArrayList<Issue>, val nextPageUrl: String, va
 
     data class Issue(val releaseTime:Long, val type:String, val date:Long, val total:Int, val publishTime:Long, val itemList:ArrayList<Item>, var count:Int, val nextPageUrl:String): BaseBean(){
 
-        data class Item(val type: String, val data: Data?, val tag: String) : Serializable {
+        data class Item(val type: String, val data: Data?, val tag: String) : Serializable, MultiItemEntity {
+
+            override fun getItemType(): Int {
+                return itemType
+            }
 
             data class Data(val dataType: String,
                             val text: String,

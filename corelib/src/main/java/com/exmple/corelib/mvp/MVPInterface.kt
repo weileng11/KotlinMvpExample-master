@@ -96,6 +96,6 @@ interface IModel : ITopModel {
 interface IListView<P : ITopPresenter> :IView<P>{
     val mRecyclerView: RecyclerView?
     val mStateView: IStateView?
-    val mRefreshLayout:SmartRefreshLayout
+    val mRefreshLayout: SmartRefreshLayout?
     fun loadMoreFail(isRefresh: Boolean)
 }

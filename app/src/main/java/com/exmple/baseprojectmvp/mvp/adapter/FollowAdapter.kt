@@ -18,7 +18,9 @@ import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
  * @date: 2019/6/6
  * @time:  10:35
  */
-class FollowAdapter(dataList: ArrayList<HomeBean.Issue.Item>): BaseQuickAdapter<HomeBean.Issue.Item, BaseViewHolder>(R.layout.item_follow,dataList) {
+class FollowAdapter(dataList: ArrayList<HomeBean.Issue.Item>):
+        BaseQuickAdapter<HomeBean.Issue.Item, BaseViewHolder>(R.layout.item_follow,dataList) {
+
     override fun convert(holder: BaseViewHolder?, data: HomeBean.Issue.Item?) {
         when {
             data?.type == "videoCollectionWithBrief" -> setAuthorInfo(data, holder!!)

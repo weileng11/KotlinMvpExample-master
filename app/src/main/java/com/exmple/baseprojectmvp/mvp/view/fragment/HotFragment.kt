@@ -28,12 +28,6 @@ import kotlinx.android.synthetic.main.fragment_hot.*
  * @time:  11:54
  */
  class HotFragment : BaseMvpFragment<IHotTabContract.View, IHotTabContract.Presenter>(),IHotTabContract.View{
-    override val mRecyclerView: RecyclerView?
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-    override val mStateView: IStateView?
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-    override val mRefreshLayout: SmartRefreshLayout
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
     override var mPresenter: IHotTabContract.Presenter = HotTabPresenter()
 
@@ -80,10 +74,6 @@ import kotlinx.android.synthetic.main.fragment_hot.*
 
     open val mRetryClickListener: View.OnClickListener = View.OnClickListener {
         lazyLoad()
-    }
-
-    override fun loadMoreFail(isRefresh: Boolean) {
-        mRefreshLayout.finishLoadMore(true)
     }
 
     override fun setTabInfo(tabInfoBean: TabInfoBean) {

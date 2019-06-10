@@ -41,6 +41,8 @@
         </activity>
         <activity android:name=".mvp.view.WatchHistoryActivity">
         </activity>
+        <activity android:name=".mvp.view.VideoDetailActivity">
+        </activity>
     </application>
 
 </manifest>

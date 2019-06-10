@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.exmple.baseprojectmvp.R
+import com.exmple.baseprojectmvp.widget.Constants
 import com.exmple.corelib.base.LibApplication
+import com.exmple.corelib.base.LibApplication.Companion.mContext
 import com.hazz.kotlinmvp.mvp.model.bean.CategoryBean
 
 /**
@@ -20,7 +22,8 @@ import com.hazz.kotlinmvp.mvp.model.bean.CategoryBean
  * @date: 2019/6/5
  * @time:  17:38
  */
-class CategoryAdapter(categoryList: ArrayList<CategoryBean>): BaseQuickAdapter<CategoryBean, BaseViewHolder>(R.layout.item_category,categoryList) {
+class CategoryAdapter(categoryList: ArrayList<CategoryBean>):
+        BaseQuickAdapter<CategoryBean, BaseViewHolder>(R.layout.item_category,categoryList) {
 
     private var textTypeface: Typeface?=null
 
@@ -54,14 +57,14 @@ class CategoryAdapter(categoryList: ArrayList<CategoryBean>): BaseQuickAdapter<C
 
         // 加载网络图片
         Glide.with(mContext).load(item.bgPicture).into(holder!!.getView(R.id.iv_category))
-    }
 
 //        holder.setOnItemClickListener(object : View.OnClickListener{
 //            override fun onClick(p0: View?) {
-//                val intent = Intent(mContext as Activity,CategoryDetailActivity::class.java)
-//                intent.putExtra(Constants.BUNDLE_CATEGORY_DATA,data)
-//                mContext.startActivity(intent)
+//                val intent = Intent(LibApplication.mContext as Activity,CategoryDetailActivity::class.java)
+//                intent.putExtra(Constants.BUNDLE_CATEGORY_DATA,item)
+//                LibApplication.mContext.startActivity(intent)
 //            }
 //        })
-//    }
+    }
+
 }

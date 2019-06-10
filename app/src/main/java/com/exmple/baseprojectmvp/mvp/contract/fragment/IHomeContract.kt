@@ -17,7 +17,7 @@ import io.reactivex.Observable
  * @time:  11:41
  */
 interface IHomeContract {
-    interface View : IListView<Presenter> {
+    interface View : IView<Presenter> {
         /**
          * 设置第一次请求的数据
          */
