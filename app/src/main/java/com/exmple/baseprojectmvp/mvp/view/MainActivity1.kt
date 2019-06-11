@@ -1,10 +1,14 @@
 package com.exmple.baseprojectmvp.mvp.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.FragmentTransaction
 import android.view.KeyEvent
+import android.view.View
 import com.exmple.baseprojectmvp.R
 import com.exmple.baseprojectmvp.R.id.tab_layout
 import com.exmple.baseprojectmvp.mvp.contract.IMainContact
@@ -20,6 +24,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.hazz.kotlinmvp.mvp.model.bean.TabEntity
 import com.sihaiwanlian.baselib.mvp.BaseMvpTitleActivity
 import kotlinx.android.synthetic.main.activity_main1.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * @author: ${bruce}
@@ -52,7 +57,18 @@ import kotlinx.android.synthetic.main.activity_main1.*
     }
 
     override fun initView() {
+        btn_search.setOnClickListener { openSearchActivity() }
+    }
 
+    private fun openSearchActivity() {
+        startActivity(Intent(this, SearchActivity::class.java))
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            val options = this?.let { ActivityOptionsCompat.makeSceneTransitionAnimation(it, btn_search, btn_search.transitionName) }
+//            startActivity(Intent(this, SearchActivity::class.java), options?.toBundle())
+//        } else {
+//            startActivity(Intent(this, SearchActivity::class.java))
+//        }
     }
 
     override fun onSetContentViewNext(savedInstanceState: Bundle?) {

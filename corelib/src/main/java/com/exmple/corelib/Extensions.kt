@@ -200,3 +200,5 @@ fun <T : BaseBean, P : ITopPresenter> Observable<T>.listSubcribe(
             })
 
 }
+
+
