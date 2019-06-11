@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.exmple.baseprojectmvp.R
+import com.exmple.baseprojectmvp.mvp.view.CategoryDetailActivity
 import com.exmple.baseprojectmvp.widget.Constants
 import com.exmple.corelib.base.LibApplication
 import com.exmple.corelib.base.LibApplication.Companion.mContext
@@ -58,13 +59,13 @@ class CategoryAdapter(categoryList: ArrayList<CategoryBean>):
         // 加载网络图片
         Glide.with(mContext).load(item.bgPicture).into(holder!!.getView(R.id.iv_category))
 
-//        holder.setOnItemClickListener(object : View.OnClickListener{
-//            override fun onClick(p0: View?) {
-//                val intent = Intent(LibApplication.mContext as Activity,CategoryDetailActivity::class.java)
-//                intent.putExtra(Constants.BUNDLE_CATEGORY_DATA,item)
-//                LibApplication.mContext.startActivity(intent)
-//            }
-//        })
+        holder?.itemView.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                val intent = Intent(mContext, CategoryDetailActivity::class.java)
+                intent.putExtra(Constants.BUNDLE_CATEGORY_DATA,item)
+                mContext.startActivity(intent)
+            }
+        })
     }
 
 }
